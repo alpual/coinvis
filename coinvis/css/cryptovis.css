@@ -1,0 +1,33 @@
+.coinHeader{
+    border-bottom: 2px solid #999;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+.coinData {
+    list-style: none;
+    padding: .5em 0 0 0;
+    border-bottom: 1px dotted #999;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.coinDataVal {
+    display: inline-block;
+    float: right;
+}
+svg{width:500px;height:350px;}
+
+svg rect{stroke-width:0;}
+
+svg text{
+    fill: #999;
+    font-size: .8em;
+}
+.grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+
+.grid path {
+    stroke-width: 0;
+}
