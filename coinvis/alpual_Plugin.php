@@ -107,7 +107,7 @@ class alpual_Plugin extends alpual_LifeCycle {
 
         // Register short codes
         // http://plugin.michael-simpson.com/?page_id=39
-        add_shortcode('say-hello-world', array($this, 'doMyShortcode'));
+        // add_shortcode('say-hello-world', array($this, 'doMyShortcode'));
         add_shortcode('coin-vis', array($this, 'ap_coin_visualization'));
 
 
