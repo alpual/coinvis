@@ -5,6 +5,7 @@ include_once('alpual_LifeCycle.php');
 
 class alpual_Plugin extends alpual_LifeCycle {
 
+    protected $features = ['graph'=>false, 'table'=>true];
     /**
      * See: http://plugin.michael-simpson.com/?page_id=31
      * @return array of option meta data.
@@ -100,14 +101,14 @@ class alpual_Plugin extends alpual_LifeCycle {
         // Adding scripts & styles to all pages
         // Examples:
         //        wp_enqueue_script('jquery');
-                wp_enqueue_style('my-style', plugins_url('/css/cryptovis.css', __FILE__));
-                wp_enqueue_script('my-script', plugins_url('/js/cryptovis.js', __FILE__));
+                wp_enqueue_style('my-style', plugins_url('/css/coinvis.css', __FILE__));
+                wp_enqueue_script('my-script', plugins_url('/js/coinvis.js', __FILE__));
 
 
         // Register short codes
         // http://plugin.michael-simpson.com/?page_id=39
-
-        add_shortcode('coin-vis', 'ap_coin_visualization');
+        add_shortcode('say-hello-world', array($this, 'doMyShortcode'));
+        add_shortcode('coin-vis', array($this, 'ap_coin_visualization'));
 
 
         // Register AJAX hooks
@@ -166,7 +167,7 @@ class alpual_Plugin extends alpual_LifeCycle {
         /*var_dump($coinData);*/
         $content = "";
 
-        if (!$coin_atts['datapoint']) {
+        if ($this->features['table'] && !$coin_atts['datapoint']) {
 
             $content .= '<ul>
             <li class="coinData">Price (USD): <span class="coinDataVal coinPrice">$' . number_format($coinData[price_usd], 2) . '&nbsp;</span></li>
@@ -183,7 +184,7 @@ class alpual_Plugin extends alpual_LifeCycle {
             $dpoint = strtolower($coin_atts['datapoint']);
             $content .=  number_format($coinData[$dpoint]);
         }
-        if (strtolower($coin_atts['graph']) != "off" && !$coin_atts['datapoint']) {
+        if ($this->features['graph'] && strtolower($coin_atts['graph']) != "off" && !$coin_atts['datapoint']) {
             $content .='<svg id="' . $coinData[id] . '" data-coin=\'' . json_encode($coinData) . '\' class="simpleCoin"></svg>';
         }
 
