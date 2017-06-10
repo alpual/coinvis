@@ -129,6 +129,7 @@ class alpual_LifeCycle extends alpual_InstallIndicator {
     protected function requireExtraPluginFiles() {
         require_once(ABSPATH . 'wp-includes/pluggable.php');
         require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+        //require_once(ABSPATH . 'wp-includes/coinvisWidget.php');
     }
 
     /**

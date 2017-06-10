@@ -2,6 +2,7 @@
 
 
 include_once('alpual_LifeCycle.php');
+include_once('alpual_coinvisWidget.php');
 
 class alpual_Plugin extends alpual_LifeCycle {
 
@@ -102,14 +103,18 @@ class alpual_Plugin extends alpual_LifeCycle {
         // Examples:
         //        wp_enqueue_script('jquery');
                 wp_enqueue_style('my-style', plugins_url('/css/coinvis.css', __FILE__));
-                wp_enqueue_script('my-script', plugins_url('/js/coinvis.js', __FILE__));
+        if($this->features['graph']) {
+            wp_enqueue_script( 'd3', 'https://cdnjs.cloudflare.com/ajax/libs/d3/4.8.0/d3.min.js');
+            wp_enqueue_script('my-script', plugins_url('/js/coinvis.js', __FILE__));
 
+        }
 
         // Register short codes
         // http://plugin.michael-simpson.com/?page_id=39
         // add_shortcode('say-hello-world', array($this, 'doMyShortcode'));
         add_shortcode('coin-vis', array($this, 'ap_coin_visualization'));
 
+        add_action('widgets_init', create_function('', 'return register_widget("alpual_coinvisWidget");'));
 
         // Register AJAX hooks
         // http://plugin.michael-simpson.com/?page_id=41
@@ -168,12 +173,12 @@ class alpual_Plugin extends alpual_LifeCycle {
         $content = "";
 
         if ($this->features['table'] && !$coin_atts['datapoint']) {
-
+            // get the whole table
             $content .= '<ul>
             <li class="coinData">Price (USD): <span class="coinDataVal coinPrice">$' . number_format($coinData[price_usd], 2) . '&nbsp;</span></li>
-            <li class="coinData">Percent Change Last Hour: <span class="coinDataVal coinPercent">' . number_format($coinData[percent_change_1h], 2) . '%</span></li>
-            <li class="coinData">Percent Change Last Day: <span class="coinDataVal coinPercent">' . number_format($coinData[percent_change_24h], 2) . '%</span></li>
-            <li class="coinData">Percent Change Last Week: <span class="coinDataVal coinPercent">' . number_format($coinData[percent_change_7d], 2) . '%</span></li>
+            <li class="coinData">Percent Change Last Hour: <span class="coinDataVal coinPercent">' . number_format($coinData[percent_change_1h], 2) . '<span class="cv-lighter-text">%</span></span></li>
+            <li class="coinData">Percent Change Last Day: <span class="coinDataVal coinPercent">' . number_format($coinData[percent_change_24h], 2) . '<span class="cv-lighter-text">%</span></span></li>
+            <li class="coinData">Percent Change Last Week: <span class="coinDataVal coinPercent">' . number_format($coinData[percent_change_7d], 2) . '<span class="cv-lighter-text">%</span></span></li>
             <li class="coinData">Market Cap: <span class="coinDataVal coinUSD">$' . number_format($coinData[market_cap_usd], 1) . '&nbsp;&nbsp;</span></li>
             <li class="coinData">24 Hour Volume: <span class="coinDataVal coinUSD">$' . number_format($coinData['24h_volume_usd'], 1) . '&nbsp;&nbsp;</span></li>
             <li class="coinData">Available Coin Supply: <span class="coinDataVal coinAmount">' . number_format($coinData[available_supply], 1) . '&nbsp;&nbsp;</span></li>
@@ -181,10 +186,12 @@ class alpual_Plugin extends alpual_LifeCycle {
         </ul>';
 
         } else {
+            // get a single piece of data
             $dpoint = strtolower($coin_atts['datapoint']);
             $content .=  number_format($coinData[$dpoint]);
         }
         if ($this->features['graph'] && strtolower($coin_atts['graph']) != "off" && !$coin_atts['datapoint']) {
+            // get the graph
             $content .='<svg id="' . $coinData[id] . '" data-coin=\'' . json_encode($coinData) . '\' class="simpleCoin"></svg>';
         }
 
@@ -197,6 +204,7 @@ class alpual_Plugin extends alpual_LifeCycle {
 
         return $o;
     }
+
 
 
 }

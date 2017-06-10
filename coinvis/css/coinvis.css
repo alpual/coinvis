@@ -31,3 +31,6 @@ svg text{
 .grid path {
     stroke-width: 0;
 }
+.cv-lighter-text {
+    color: #aaa;
+}
