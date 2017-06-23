@@ -15,7 +15,11 @@ Adds shortcodes for generating cryptocurrency coin tables
 Adds shortcodes for generating cryptocurrency coin tables
 
 == Installation ==
+Install manually as a wordpress plugin.  It will need to be in a .zip file.
+Zip up the coinvis directory, which should contain all of the files including this directory.
 
+See more here:
+https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation
 
 == Frequently Asked Questions ==
 
