@@ -1,5 +1,5 @@
 === CoinVis ===
-Contributors: <a href="paulweekwright.com">Paul Weeks Wright</a>
+Contributors: <a href="paulweekswright.com">Paul Weeks Wright</a>, Demo at <a href="alpual.com>alpual.com</a>
 Donate link:
 Tags:
 License: GPLv3
@@ -18,8 +18,8 @@ Adds shortcodes for generating cryptocurrency coin tables
 Install manually as a wordpress plugin.  It will need to be in a .zip file.
 Zip up the coinvis directory, which should contain all of the files including this directory.
 
-See more here:
-https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation
+<a href="https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation" target="_blank">See more here
+https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation</a>
 
 == Frequently Asked Questions ==
 
